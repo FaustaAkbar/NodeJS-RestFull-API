@@ -1,64 +1,81 @@
 import supertest from "supertest";
 import { web } from "../src/application/web";
-import { prismaClient } from "../src/application/database";
 import { logger } from "../src/application/logging";
+import { createTestUser, removeTestUser } from "./test-util";
 
 describe('POST /api/users', function(){
 
     afterEach(async ()=>{
-        await prismaClient.user.deleteMany({
-            where:{
-                username: "fausta"
-            }
-        })
+        await removeTestUser();
     })
 
     it('should can register new user', async ()=>{
-        const result = supertest(web).post('/api/users').send({
-            username : "fausta",
+        const result = await supertest(web).post('/api/users').send({
+            username : "test",
             password : "rahasia",
-            name : "fausta akbar"
+            name : "test"
         });
 
-        expect((await result).status).toBe(200);
-        expect((await result).body.data.username).toBe("fausta");
-        expect((await result).body.data.name).toBe("fausta akbar");
-        expect((await result).body.data.password).toBeUndefined();
+        expect(result.status).toBe(200);
+        expect(result.body.data.username).toBe("test");
+        expect(result.body.data.name).toBe("test");
+        expect(result.body.data.password).toBeUndefined();
     });
 
     it('should reject if request is invalid', async ()=>{
-        const result = supertest(web).post('/api/users').send({
+        const result = await supertest(web).post('/api/users').send({
             username : "",
             password : "",
             name : ""
         });
-        logger.info((await result).body);
-        expect((await result).status).toBe(400);
-        expect((await result).body.errors).toBeDefined();
+        logger.info(result.body);
+        expect(result.status).toBe(400);
+        expect(result.body.errors).toBeDefined();
         
     });
 
     it('should reject if username already registered', async ()=>{
-        let result = supertest(web).post('/api/users').send({
-            username : "fausta",
+        let result = await supertest(web).post('/api/users').send({
+            username : "test",
             password : "rahasia",
-            name : "fausta akbar"
+            name : "test"
         });
 
-        logger.info((await result).body);
-        expect((await result).status).toBe(200);
-        expect((await result).body.data.username).toBe("fausta");
-        expect((await result).body.data.name).toBe("fausta akbar");
-        expect((await result).body.data.password).toBeUndefined();
+        logger.info(result.body);
+        expect(result.status).toBe(200);
+        expect(result.body.data.username).toBe("test");
+        expect(result.body.data.name).toBe("test");
+        expect(result.body.data.password).toBeUndefined();
 
-        result = supertest(web).post('/api/users').send({
-            username : "fausta",
+        result = await supertest(web).post('/api/users').send({
+            username : "test",
             password : "rahasia",
-            name : "fausta akbar"
+            name : "test"
         });
 
-        logger.info((await result).body);
-        expect((await result).status).toBe(400);
-        expect((await result).body.errors).toBeDefined();
+        logger.info( result.body);
+        expect(result.status).toBe(400);
+        expect(result.body.errors).toBeDefined();
     });
-})
+});
+
+describe('POST /api/users/login', function (){
+    beforeEach(async ()=>{
+        await createTestUser();
+    });
+    afterEach(async ()=>{
+        await removeTestUser();
+    });
+
+    it(`should can login`, async ()=>{
+        const result = await supertest(web).post('/api/users/login').send({
+            username: "test",
+            password: "rahasia"
+        });
+
+        logger.info(result.body);
+        expect(result.status).toBe(200);
+        expect(result.body.data.token).toBeDefined();
+        expect(result.body.data.token).not.toBe("test");
+    });
+});

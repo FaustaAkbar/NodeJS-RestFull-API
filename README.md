@@ -1,10 +1,10 @@
-# RESTful API with Node.js
+# RESTful API with Node.js 🚀
 
-## Description
+## Description 📝
 
 This is a RESTful API built using Node.js, utilizing several modern libraries and frameworks to ensure efficiency, security, and maintainability.
 
-## Technologies Used
+## Technologies Used 🛠️
 
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework for building APIs
@@ -17,7 +17,7 @@ This is a RESTful API built using Node.js, utilizing several modern libraries an
 - **Jest** - Testing framework
 - **Supertest** - API testing utility
 
-## Installation
+## Installation ⚙️
 
 1. Clone the repository:
    ```sh
@@ -35,9 +35,9 @@ This is a RESTful API built using Node.js, utilizing several modern libraries an
    - Create a `.env` file in the root directory
    - Add necessary configurations (e.g., database URL, JWT secret)
 
-## Usage
+## Usage 🚀
 
-### Running the Server
+### Running the Server 🏃
 
 Start the development server:
 
@@ -51,7 +51,7 @@ Start the production server:
 npm start
 ```
 
-### Running Tests
+### Running Tests 🧪
 
 To run unit and integration tests:
 
@@ -59,11 +59,11 @@ To run unit and integration tests:
 npm test
 ```
 
-## API Documentation
+## API Documentation 📖
 
 For detailed API endpoints, visit the [API Documentation](https://github.com/FaustaAkbar/NodeJS-RestFull-API/tree/main/docs).
 
-## Project Structure
+## Project Structure 📂
 
 ```
 📂 your-repo
@@ -85,6 +85,6 @@ For detailed API endpoints, visit the [API Documentation](https://github.com/Fau
 ├── README.md
 ```
 
-## License
+## License 📜
 
 This project is licensed under the MIT License.

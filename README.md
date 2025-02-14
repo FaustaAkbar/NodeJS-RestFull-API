@@ -21,11 +21,11 @@ This is a RESTful API built using Node.js, utilizing several modern libraries an
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/your-repo.git
+   git clone https://github.com/FaustaAkbar/NodeJS-RestFull-API
    ```
 2. Navigate to the project directory:
    ```sh
-   cd your-repo
+   cd NodeJS-RestFull-API
    ```
 3. Install dependencies:
    ```sh
